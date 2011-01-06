@@ -43,11 +43,8 @@ install: all
 	@cp Makefile.base $(PSL1GHT)/
 	@cp tools/raw2h/raw2h tools/ps3load/ps3load tools/sprxlinker/sprxlinker $(PSL1GHT)/bin/
 	@if test -e $(CGINCLUDE); then cp tools/vpcomp/vpcomp $(PSL1GHT)/bin/; fi
-	@cp tools/PS3Py/fself.py $(PSL1GHT)/bin/
-	@cp tools/PS3Py/Struct.py $(PSL1GHT)/bin/
-	@cp tools/PS3Py/sfo.py $(PSL1GHT)/bin/
+	@tools/PS3Py/install-scripts $(PSL1GHT)/bin/ tools/PS3Py/fself.py tools/PS3Py/Struct.py tools/PS3Py/sfo.py tools/PS3Py/pkg.py
 	@cp tools/PS3Py/sfo.xml $(PSL1GHT)/bin/
-	@cp tools/PS3Py/pkg.py $(PSL1GHT)/bin/
 	@cp tools/PS3Py/ICON0.PNG $(PSL1GHT)/bin/
 	@cp tools/PS3Py/pkgcrypt.* $(PSL1GHT)/bin/
 	@echo Installed to $(PSL1GHT)
