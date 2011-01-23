@@ -89,6 +89,9 @@ void CCompilerFP::Compile(CParser *pParser)
 			case OPCODE_ADD:
 				emit_insn(NVFX_FP_OP_OPCODE_ADD,insn);
 				break;
+			case OPCODE_BRK:
+				emit_brk(insn);
+				break;
 			case OPCODE_COS:
 				emit_insn(NVFX_FP_OP_OPCODE_COS,insn);
 				break;
@@ -333,6 +336,27 @@ void CCompilerFP::emit_src(s32 pos,struct nvfx_src *src,bool *have_const)
 	       (src->swz[3] << NVFX_FP_REG_SWZ_W_SHIFT));
 
 	hw[pos + 1] |= sr;
+}
+
+void CCompilerFP::emit_brk(struct nvfx_insn *insn)
+{
+	u32 *hw;
+
+	m_nCurInstruction = m_nInstructions;
+	grow_insns(1);
+	memset(&m_pInstructions[m_nCurInstruction],0,sizeof(struct fragment_program_exec));
+
+	hw = m_pInstructions[m_nCurInstruction].data;
+
+	hw[0] |= (NV40_FP_OP_BRA_OPCODE_BRK << NVFX_FP_OP_OPCODE_SHIFT);
+	hw[0] |= NV40_FP_OP_OUT_NONE;
+	hw[2] |= NV40_FP_OP_OPCODE_IS_BRANCH;
+
+	hw[1] |= (insn->cc_cond << NVFX_FP_OP_COND_SHIFT);
+	hw[1] |= ((insn->cc_swz[0] << NVFX_FP_OP_COND_SWZ_X_SHIFT) |
+			  (insn->cc_swz[1] << NVFX_FP_OP_COND_SWZ_Y_SHIFT) |
+		      (insn->cc_swz[2] << NVFX_FP_OP_COND_SWZ_Z_SHIFT) |
+		      (insn->cc_swz[3] << NVFX_FP_OP_COND_SWZ_W_SHIFT));
 }
 
 struct nvfx_reg CCompilerFP::temp()

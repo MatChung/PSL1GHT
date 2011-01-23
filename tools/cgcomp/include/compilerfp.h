@@ -34,6 +34,7 @@ private:
 	void emit_insn(u8 op,struct nvfx_insn *insn);
 	void emit_dst(struct nvfx_reg *dst,bool *have_const);
 	void emit_src(s32 pos,struct nvfx_src *src,bool *have_const);
+	void emit_brk(struct nvfx_insn *insn);
 
 	void grow_insns(int count);
 

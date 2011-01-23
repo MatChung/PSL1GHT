@@ -43,6 +43,7 @@ struct _opcode
 	u32 suffixes;
 } fp_opcodes[] = {
    { "ADD", OPCODE_ADD, INPUT_2V, OUTPUT_V, _R | _H | _X | _C | _S },
+   { "BRK", OPCODE_BRK, INPUT_CC, OUTPUT_NONE, 0                   },
    { "COS", OPCODE_COS, INPUT_1S, OUTPUT_S, _R | _H |      _C | _S },
    { "DDX", OPCODE_DDX, INPUT_1V, OUTPUT_V, _R | _H |      _C | _S },
    { "DDY", OPCODE_DDY, INPUT_1V, OUTPUT_V, _R | _H |      _C | _S },
@@ -286,6 +287,8 @@ void CFPParser::ParseInstruction(struct nvfx_insn *insn,opcode *opc,const char *
 		ParseTextureTarget(token,&target);
 
 		insn->unit = unit;
+	} else if(opc->inputs==INPUT_CC) {
+		ParseCond(token,insn);
 	}
 }
 
