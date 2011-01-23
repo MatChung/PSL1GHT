@@ -420,12 +420,13 @@ int compileFP()
 int main(int argc,char *argv[])
 {
 	int ret = 0;
-	if(!InitCompiler()) {
-        fprintf(stderr, "Unable to load Cg, aborting.\n");
-        return EXIT_FAILURE;
-    }
 
 	readoptions(&Options,argc,argv);
+	
+	if(Options.gen_asm!=true && !InitCompiler()) {
+	  fprintf(stderr, "Unable to load Cg, aborting.\n");
+	  return EXIT_FAILURE;
+	}
 
 	switch(Options.prog_type) {
 		case PROG_TYPE_VP:
