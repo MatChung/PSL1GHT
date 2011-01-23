@@ -12,8 +12,13 @@
 #define PROG_TYPE_VP			1
 #define PROG_TYPE_FP			2
 
+#ifdef __BIG_ENDIAN__
+#define SWAP16(v) (v)
+#define SWAP32(v) (v)
+#else
 #define SWAP16(v) ((v)>>8)|((v)<<8)
 #define SWAP32(v) ((v)>>24)|((v)<<24)|(((v)&0xFF00)<<8)|(((v)&0xFF0000)>>8)
+#endif
 
 struct _options
 {
