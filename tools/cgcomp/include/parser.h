@@ -2,6 +2,7 @@
 #define __PARSER_H__
 
 #include <list>
+#include <stack>
 #include <string>
 #include <sstream>
 

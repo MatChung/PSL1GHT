@@ -89,6 +89,8 @@ struct _opcode
    { "UP4UB", OPCODE_UP4UB, INPUT_1S, OUTPUT_V,            _C | _S },
    { "X2D", OPCODE_X2D, INPUT_3V, OUTPUT_V, _R | _H |      _C | _S },
    { "PRINT", OPCODE_PRINT, INPUT_1V_S, OUTPUT_NONE, 0             },
+   { "REP", OPCODE_BGNREP, INPUT_1V, OUTPUT_NONE, 0                },
+   { "ENDREP", OPCODE_ENDREP, INPUT_NONE, OUTPUT_NONE, 0           },
    //
    { "END", OPCODE_END,0,0,0 },
    { NULL, (enum nvfx_opcode) -1, 0, 0, 0 }
